@@ -1,0 +1,12 @@
+/*****************************************/
+一.串口CRC校验
+串口数据包
+typedef struct
+{
+    unsigned char id;       //该数据包的cmd_id
+    unsigned char length;   //数据包长度--指数据段长度，不包括cmd_id和length
+    char data[256];         //用于存放数据段
+}uart_rec_packet;
+
+串口发送的每个数据包必须以0x0d 0x0a 结尾
+接受到数据包后，会把数据段的最后一个字节设置为0
