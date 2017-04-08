@@ -15,7 +15,7 @@ typedef struct
     char update_flag;       //receive a new buff
     unsigned char id;       //cmd_id
     unsigned char length;   //value data length
-    char data[256];         //data
+    unsigned char data[256];         //data
 }uart_rec_packet;
 
 typedef enum{

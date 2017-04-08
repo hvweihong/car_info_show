@@ -17,8 +17,9 @@
 #include <QPainterPath>
 #include <QTime>
 
+
 BaudRateType baud_array[]={BAUD9600,BAUD19200,BAUD38400,BAUD57600,BAUD115200};
-static quint32 p = 0;
+static quint32 origin_point = CURVE_BOX_START_W;
 extern uart_rec_packet g_uart_rec_pkg;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -88,7 +89,7 @@ void MainWindow::on_pushButton_switch_clicked()
         if(serial_commmu->open()==false)
         {
             QMessageBox message;
-            message.setText(tr("open serial error !"));
+            message.setText(tr("open serial port error !"));
             message.show();
             return;
         }
@@ -130,9 +131,6 @@ void MainWindow::closeEvent(QCloseEvent *)
 
 void MainWindow::graph_update()
 {
-    static quint32 x_index = 0;
-    char str_temp[64];
-    QString str = "";
     if(g_uart_rec_pkg.update_flag && g_uart_rec_pkg.length > 0)
     {
         g_uart_rec_pkg.update_flag = 0;
@@ -141,33 +139,16 @@ void MainWindow::graph_update()
             switch(g_uart_rec_pkg.id)
             {
                 case TEMPERATURE:
-                    x_index++;
-                    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
-                    str = str_temp;
-                    ui->lineEdit_ch1_title->setText(str);
-                    point->setX(x_index);
-                    point->setY(g_uart_rec_pkg.data[0]);
-                    path->lineTo(*point);
-                    if(x_index > 300)
-                    {
-                        p--;
-                    }
-                    this->update();
+                    on_temperature_cmd();
                     break;
                 case SPEED:
-                    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
-                    str = str_temp;
-                    ui->lineEdit_ch2_title->setText(str);
+                    on_speed_cmd();
                     break;
                 case VOLTAGE:
-                    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
-                    str = str_temp;
-                    ui->lineEdit_ch3_title->setText(str);
+                    on_voltage_cmd();
                     break;
                 default:
-                    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
-                    str = str_temp;
-                    ui->lineEdit_ch4_title->setText(str);
+                    on_undefine_cmd();
                     break;
              }
         }else
@@ -175,29 +156,7 @@ void MainWindow::graph_update()
             qDebug("receive a error packet");
         }
     }
-//    for(;index+1<points;index++)
-//    {
-//        quint16 Y_value = serial_commmu->get_data(index,0);
-//        char temp[64];
-//        sprintf(temp, "%d", Y_value);
-//        QString s(temp);
-//        ui->lineEdit_ch1_title->setText(s);
-//        if(Y_value > 200)
-//        {
-//            Y_value = 200;
-//        }else if(Y_value < 0)
-//        {
-//            Y_value = 0;
-//        }
-//        point->setX(index);
-//        point->setY(Y_value);
-//        path->lineTo(*point);
-//        if(index > 300)
-//        {
-//            p--;
-//        }
-//        this->update();
-//    }
+    this->update();
 }
 
 bool MainWindow::eventFilter(QObject *obj, QEvent *event)
@@ -209,7 +168,65 @@ void MainWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     painter.setPen(QPen(Qt::red)); //adjust the painter size and color
-    QPoint originPoint(p,0);
+    QPoint originPoint(origin_point,0);
     painter.translate(originPoint);  //adjust the origin point of the painting
     painter.drawPath(*path);  //painting
+    draw_background();
+}
+
+void MainWindow::draw_background(void)
+{
+    QPainter painter(this);
+    painter.setPen(QPen(Qt::black,2));//设置画笔形式
+    painter.drawRect(CURVE_BOX_START_W, CURVE_BOX_START_H, (CURVE_BOX_WIDTH + 2), (CURVE_BOX_HEIGTH + 2));
+}
+
+void MainWindow::on_temperature_cmd(void)
+{
+    static quint32 x_index = 0;
+    char str_temp[64];
+    QString str = "";
+    x_index += PER_STEP_POINT;
+    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
+    quint8 y_index = g_uart_rec_pkg.data[0];
+    if(y_index > CURVE_BOX_HEIGTH)
+    {
+        y_index = CURVE_BOX_HEIGTH;
+    }
+    str = str_temp;
+    ui->lineEdit_ch1_title->setText(str);
+    point->setX(x_index);
+    point->setY(y_index + CURVE_BOX_START_H);
+    path->lineTo(*point);
+    if(x_index > CURVE_BOX_START_W + CURVE_BOX_WIDTH)
+    {
+        origin_point -= PER_STEP_POINT;
+    }
+}
+
+void MainWindow::on_speed_cmd(void)
+{
+    char str_temp[64];
+    QString str = "";
+    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
+    str = str_temp;
+    ui->lineEdit_ch2_title->setText(str);
+}
+
+void MainWindow::on_voltage_cmd(void)
+{
+    char str_temp[64];
+    QString str = "";
+    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
+    str = str_temp;
+    ui->lineEdit_ch3_title->setText(str);
+}
+
+void MainWindow::on_undefine_cmd(void)
+{
+    char str_temp[64];
+    QString str = "";
+    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
+    str = str_temp;
+    ui->lineEdit_ch4_title->setText(str);
 }

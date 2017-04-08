@@ -50,6 +50,7 @@ public:
     QLabel *label_1;
     QLineEdit *lineEdit_ch1_title;
     QWidget *widget;
+    QLabel *label_2;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -133,10 +134,13 @@ public:
         widget->setGeometry(QRect(530, 20, 300, 150));
         widget->setMinimumSize(QSize(0, 150));
         widget->setMaximumSize(QSize(300, 150));
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(120, 180, 54, 12));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 900, 22));
+        menuBar->setGeometry(QRect(0, 0, 900, 23));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -184,6 +188,7 @@ public:
         groupBox_ch1->setTitle(QApplication::translate("MainWindow", "\346\270\251\345\272\246", Q_NULLPTR));
         label_1->setText(QApplication::translate("MainWindow", "\345\272\246", Q_NULLPTR));
         lineEdit_ch1_title->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindow", "\346\270\251\345\272\246\346\233\262\347\272\277", Q_NULLPTR));
     } // retranslateUi
 
 };
