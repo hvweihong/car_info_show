@@ -9,11 +9,12 @@
 #include <QSettings>
 #include <QThread>
 
-#define CURVE_BOX_WIDTH     300
-#define CURVE_BOX_HEIGTH    150
+#define CURVE_BOX_WIDTH     600
+#define CURVE_BOX_HEIGTH    300
 #define CURVE_BOX_START_W   0
 #define CURVE_BOX_START_H   15
 #define PER_STEP_POINT      2
+#define BATTLE_NUM          4
 
 
 namespace Ui {
@@ -49,8 +50,8 @@ private:
     data_protocol *serial_commmu;
     QSettings *setting;
     QTimer *update_timer;
-    QPoint *point;
-    QPainterPath *path;
+    QPoint *battle_line[BATTLE_NUM];
+    QPainterPath *path[BATTLE_NUM];
 
 private slots:
     void graph_update();

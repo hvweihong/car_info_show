@@ -20,6 +20,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -49,8 +50,24 @@ public:
     QGroupBox *groupBox_ch1;
     QLabel *label_1;
     QLineEdit *lineEdit_ch1_title;
-    QWidget *widget;
     QLabel *label_2;
+    QProgressBar *battleBar_1;
+    QProgressBar *battleBar_2;
+    QProgressBar *battleBar_3;
+    QProgressBar *battleBar_4;
+    QLabel *label_4;
+    QLabel *label_5;
+    QLabel *label_6;
+    QLabel *label_8;
+    QLabel *label_10;
+    QLabel *label_12;
+    QLabel *label_13;
+    QLabel *label_14;
+    QLabel *label_15;
+    QLabel *label_16;
+    QLabel *label_18;
+    QLabel *label_19;
+    QLabel *label_20;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -60,6 +77,8 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(900, 568);
+        MainWindow->setAutoFillBackground(true);
+        MainWindow->setStyleSheet(QStringLiteral("font-color:rgb(255, 0, 127)"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         groupBox_all = new QGroupBox(centralWidget);
@@ -129,14 +148,73 @@ public:
         lineEdit_ch1_title = new QLineEdit(groupBox_ch1);
         lineEdit_ch1_title->setObjectName(QStringLiteral("lineEdit_ch1_title"));
         lineEdit_ch1_title->setGeometry(QRect(10, 30, 61, 20));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(530, 20, 300, 150));
-        widget->setMinimumSize(QSize(0, 150));
-        widget->setMaximumSize(QSize(300, 150));
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(120, 180, 54, 12));
+        label_2->setGeometry(QRect(280, 340, 54, 12));
+        battleBar_1 = new QProgressBar(centralWidget);
+        battleBar_1->setObjectName(QStringLiteral("battleBar_1"));
+        battleBar_1->setGeometry(QRect(690, 10, 181, 51));
+        battleBar_1->setValue(24);
+        battleBar_2 = new QProgressBar(centralWidget);
+        battleBar_2->setObjectName(QStringLiteral("battleBar_2"));
+        battleBar_2->setGeometry(QRect(690, 90, 181, 51));
+        battleBar_2->setValue(24);
+        battleBar_3 = new QProgressBar(centralWidget);
+        battleBar_3->setObjectName(QStringLiteral("battleBar_3"));
+        battleBar_3->setGeometry(QRect(690, 170, 181, 51));
+        battleBar_3->setValue(24);
+        battleBar_4 = new QProgressBar(centralWidget);
+        battleBar_4->setObjectName(QStringLiteral("battleBar_4"));
+        battleBar_4->setGeometry(QRect(690, 250, 181, 51));
+        battleBar_4->setValue(24);
+        label_4 = new QLabel(centralWidget);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(740, 70, 54, 12));
+        label_5 = new QLabel(centralWidget);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(740, 150, 54, 12));
+        label_6 = new QLabel(centralWidget);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(740, 230, 54, 12));
+        label_8 = new QLabel(centralWidget);
+        label_8->setObjectName(QStringLiteral("label_8"));
+        label_8->setGeometry(QRect(740, 310, 54, 12));
+        label_10 = new QLabel(centralWidget);
+        label_10->setObjectName(QStringLiteral("label_10"));
+        label_10->setGeometry(QRect(30, 330, 41, 16));
+        label_10->setStyleSheet(QStringLiteral(""));
+        label_12 = new QLabel(centralWidget);
+        label_12->setObjectName(QStringLiteral("label_12"));
+        label_12->setGeometry(QRect(70, 330, 41, 16));
+        label_12->setStyleSheet(QStringLiteral("color:red"));
+        label_13 = new QLabel(centralWidget);
+        label_13->setObjectName(QStringLiteral("label_13"));
+        label_13->setGeometry(QRect(70, 350, 41, 16));
+        label_13->setStyleSheet(QStringLiteral("color:green"));
+        label_14 = new QLabel(centralWidget);
+        label_14->setObjectName(QStringLiteral("label_14"));
+        label_14->setGeometry(QRect(30, 350, 41, 16));
+        label_14->setStyleSheet(QStringLiteral(""));
+        label_15 = new QLabel(centralWidget);
+        label_15->setObjectName(QStringLiteral("label_15"));
+        label_15->setGeometry(QRect(160, 330, 41, 16));
+        label_15->setStyleSheet(QStringLiteral("color:blue"));
+        label_16 = new QLabel(centralWidget);
+        label_16->setObjectName(QStringLiteral("label_16"));
+        label_16->setGeometry(QRect(120, 330, 41, 16));
+        label_16->setStyleSheet(QStringLiteral(""));
+        label_18 = new QLabel(centralWidget);
+        label_18->setObjectName(QStringLiteral("label_18"));
+        label_18->setGeometry(QRect(180, 470, 41, 16));
+        label_18->setStyleSheet(QStringLiteral(""));
+        label_19 = new QLabel(centralWidget);
+        label_19->setObjectName(QStringLiteral("label_19"));
+        label_19->setGeometry(QRect(160, 350, 41, 16));
+        label_19->setStyleSheet(QStringLiteral("color:yellow"));
+        label_20 = new QLabel(centralWidget);
+        label_20->setObjectName(QStringLiteral("label_20"));
+        label_20->setGeometry(QRect(120, 350, 41, 16));
+        label_20->setStyleSheet(QStringLiteral(""));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -188,7 +266,20 @@ public:
         groupBox_ch1->setTitle(QApplication::translate("MainWindow", "\346\270\251\345\272\246", Q_NULLPTR));
         label_1->setText(QApplication::translate("MainWindow", "\345\272\246", Q_NULLPTR));
         lineEdit_ch1_title->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
-        label_2->setText(QApplication::translate("MainWindow", "\346\270\251\345\272\246\346\233\262\347\272\277", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindow", "\347\224\265\345\216\213\346\233\262\347\272\277", Q_NULLPTR));
+        label_4->setText(QApplication::translate("MainWindow", "\347\224\265\346\261\240\344\270\200", Q_NULLPTR));
+        label_5->setText(QApplication::translate("MainWindow", "\347\224\265\346\261\240\344\272\214", Q_NULLPTR));
+        label_6->setText(QApplication::translate("MainWindow", "\347\224\265\346\261\240\344\270\211", Q_NULLPTR));
+        label_8->setText(QApplication::translate("MainWindow", "\347\224\265\346\261\240\345\233\233", Q_NULLPTR));
+        label_10->setText(QApplication::translate("MainWindow", "\347\224\265\346\261\2401:", Q_NULLPTR));
+        label_12->setText(QApplication::translate("MainWindow", "-------", Q_NULLPTR));
+        label_13->setText(QApplication::translate("MainWindow", "-------", Q_NULLPTR));
+        label_14->setText(QApplication::translate("MainWindow", "\347\224\265\346\261\2402:", Q_NULLPTR));
+        label_15->setText(QApplication::translate("MainWindow", "-------", Q_NULLPTR));
+        label_16->setText(QApplication::translate("MainWindow", "\347\224\265\346\261\2403:", Q_NULLPTR));
+        label_18->setText(QApplication::translate("MainWindow", "\347\224\265\346\261\2401:", Q_NULLPTR));
+        label_19->setText(QApplication::translate("MainWindow", "-------", Q_NULLPTR));
+        label_20->setText(QApplication::translate("MainWindow", "\347\224\265\346\261\2404:", Q_NULLPTR));
     } // retranslateUi
 
 };

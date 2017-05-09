@@ -41,8 +41,12 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     update_timer= new QTimer(this);
-    path = new QPainterPath;
-    point = new QPoint;
+    for(int i = 0; i < BATTLE_NUM; i++)
+    {
+        battle_line[i] = new QPoint;
+        path[i] = new QPainterPath;
+    }
+
     connect(update_timer,SIGNAL(timeout()),this,SLOT(graph_update()));
 
     QDir dir;
@@ -167,10 +171,29 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 void MainWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    painter.setPen(QPen(Qt::red)); //adjust the painter size and color
     QPoint originPoint(origin_point,0);
     painter.translate(originPoint);  //adjust the origin point of the painting
-    painter.drawPath(*path);  //painting
+    for(int i = 0; i < BATTLE_NUM; i++)
+    {
+        switch(i)
+        {
+            case 0:
+                painter.setPen(QPen(Qt::red)); //adjust the painter size and color
+                break;
+            case 1:
+                painter.setPen(QPen(Qt::green)); //adjust the painter size and color
+                break;
+            case 2:
+                painter.setPen(QPen(Qt::blue)); //adjust the painter size and color
+                break;
+            case 3:
+                painter.setPen(QPen(Qt::yellow)); //adjust the painter size and color
+                break;
+           default:
+                break;
+        }
+        painter.drawPath(*path[i]);  //painting
+    }
     draw_background();
 }
 
@@ -183,25 +206,11 @@ void MainWindow::draw_background(void)
 
 void MainWindow::on_temperature_cmd(void)
 {
-    static quint32 x_index = 0;
     char str_temp[64];
     QString str = "";
-    x_index += PER_STEP_POINT;
     sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
-    quint8 y_index = g_uart_rec_pkg.data[0];
-    if(y_index > CURVE_BOX_HEIGTH)
-    {
-        y_index = CURVE_BOX_HEIGTH;
-    }
     str = str_temp;
     ui->lineEdit_ch1_title->setText(str);
-    point->setX(x_index);
-    point->setY(y_index + CURVE_BOX_START_H);
-    path->lineTo(*point);
-    if(x_index > CURVE_BOX_START_W + CURVE_BOX_WIDTH)
-    {
-        origin_point -= PER_STEP_POINT;
-    }
 }
 
 void MainWindow::on_speed_cmd(void)
@@ -215,11 +224,45 @@ void MainWindow::on_speed_cmd(void)
 
 void MainWindow::on_voltage_cmd(void)
 {
+    static quint32 x_index = 0;
+    static quint32 y_index[BATTLE_NUM] = {0};
     char str_temp[64];
     QString str = "";
     sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
     str = str_temp;
+
+    x_index += PER_STEP_POINT;
+    for(int i = 0; i < BATTLE_NUM; i++)
+    {
+        y_index[i] = g_uart_rec_pkg.data[i + 1];
+        if(y_index[i] > CURVE_BOX_HEIGTH)
+        {
+            y_index[i] = CURVE_BOX_HEIGTH;
+        }
+    }
+    //显示总电压
     ui->lineEdit_ch3_title->setText(str);
+    //显示电池电量
+    ui->battleBar_1->setValue(g_uart_rec_pkg.data[1]);
+    ui->battleBar_2->setValue(g_uart_rec_pkg.data[2]);
+    ui->battleBar_3->setValue(g_uart_rec_pkg.data[3]);
+    ui->battleBar_4->setValue(g_uart_rec_pkg.data[4]);
+
+    for(int i = 0; i < BATTLE_NUM; i++)
+    {
+        battle_line[i]->setX(x_index);
+        battle_line[i]->setY(y_index[i] + CURVE_BOX_START_H);
+        path[i]->lineTo(*battle_line[i]);
+    }
+
+    if(x_index > CURVE_BOX_START_W + CURVE_BOX_WIDTH)
+    {
+        origin_point -= PER_STEP_POINT;
+    }
+
+
+
+
 }
 
 void MainWindow::on_undefine_cmd(void)
