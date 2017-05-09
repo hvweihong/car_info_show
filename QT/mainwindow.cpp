@@ -206,31 +206,22 @@ void MainWindow::draw_background(void)
 
 void MainWindow::on_temperature_cmd(void)
 {
-    char str_temp[64];
-    QString str = "";
-    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
-    str = str_temp;
-    ui->lineEdit_ch1_title->setText(str);
+    ui->tem_box->setValue(g_uart_rec_pkg.data[0]);
 }
 
 void MainWindow::on_speed_cmd(void)
 {
-    char str_temp[64];
-    QString str = "";
-    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
-    str = str_temp;
-    ui->lineEdit_ch2_title->setText(str);
+    ui->power_box->setValue(g_uart_rec_pkg.data[0]);
 }
 
 void MainWindow::on_voltage_cmd(void)
 {
     static quint32 x_index = 0;
     static quint32 y_index[BATTLE_NUM] = {0};
-    char str_temp[64];
-    QString str = "";
-    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
-    str = str_temp;
 
+    //显示各个电池电压
+    show_battle_info();
+    //显示曲线
     x_index += PER_STEP_POINT;
     for(int i = 0; i < BATTLE_NUM; i++)
     {
@@ -240,14 +231,6 @@ void MainWindow::on_voltage_cmd(void)
             y_index[i] = CURVE_BOX_HEIGTH;
         }
     }
-    //显示总电压
-    ui->lineEdit_ch3_title->setText(str);
-    //显示电池电量
-    ui->battleBar_1->setValue(g_uart_rec_pkg.data[1]);
-    ui->battleBar_2->setValue(g_uart_rec_pkg.data[2]);
-    ui->battleBar_3->setValue(g_uart_rec_pkg.data[3]);
-    ui->battleBar_4->setValue(g_uart_rec_pkg.data[4]);
-
     for(int i = 0; i < BATTLE_NUM; i++)
     {
         battle_line[i]->setX(x_index);
@@ -260,16 +243,47 @@ void MainWindow::on_voltage_cmd(void)
         origin_point -= PER_STEP_POINT;
     }
 
-
-
-
 }
 
 void MainWindow::on_undefine_cmd(void)
 {
-    char str_temp[64];
-    QString str = "";
-    sprintf(str_temp, "%d", g_uart_rec_pkg.data[0]);
-    str = str_temp;
-    ui->lineEdit_ch4_title->setText(str);
+    ui->other_box->setValue(g_uart_rec_pkg.data[0]);
+}
+
+void MainWindow::show_battle_info(void)
+{
+    //显示总电压
+
+    ui->voltage_box->setValue(g_uart_rec_pkg.data[0] + g_uart_rec_pkg.data[4] + g_uart_rec_pkg.data[8] + g_uart_rec_pkg.data[12]);
+
+    //电池一
+    ui->bta_1_V->setValue(g_uart_rec_pkg.data[0]);
+    ui->bta_1_A->setValue(g_uart_rec_pkg.data[1]);
+    ui->bta_1_C->setValue(g_uart_rec_pkg.data[2]);
+    ui->bta_1_W->setValue(g_uart_rec_pkg.data[0]*g_uart_rec_pkg.data[1]);
+    ui->battleBar_1->setValue(g_uart_rec_pkg.data[3]);
+
+    //电池二
+    ui->bta_2_V->setValue(g_uart_rec_pkg.data[4]);
+    ui->bta_2_V->setValue(g_uart_rec_pkg.data[4]);
+    ui->bta_2_A->setValue(g_uart_rec_pkg.data[5]);
+    ui->bta_2_C->setValue(g_uart_rec_pkg.data[6]);
+    ui->bta_2_W->setValue(g_uart_rec_pkg.data[4]*g_uart_rec_pkg.data[5]);
+    ui->battleBar_2->setValue(g_uart_rec_pkg.data[7]);
+
+    //电池三
+    ui->bta_3_V->setValue(g_uart_rec_pkg.data[8]);
+    ui->bta_3_V->setValue(g_uart_rec_pkg.data[8]);
+    ui->bta_3_A->setValue(g_uart_rec_pkg.data[9]);
+    ui->bta_3_C->setValue(g_uart_rec_pkg.data[10]);
+    ui->bta_3_W->setValue(g_uart_rec_pkg.data[8]*g_uart_rec_pkg.data[9]);
+    ui->battleBar_3->setValue(g_uart_rec_pkg.data[11]);
+
+    //电池四
+    ui->bta_3_V->setValue(g_uart_rec_pkg.data[12]);
+    ui->bta_4_V->setValue(g_uart_rec_pkg.data[12]);
+    ui->bta_4_A->setValue(g_uart_rec_pkg.data[13]);
+    ui->bta_4_C->setValue(g_uart_rec_pkg.data[14]);
+    ui->bta_4_W->setValue(g_uart_rec_pkg.data[12]*g_uart_rec_pkg.data[13]);
+    ui->battleBar_4->setValue(g_uart_rec_pkg.data[15]);
 }

@@ -9,8 +9,8 @@
 #include <QSettings>
 #include <QThread>
 
-#define CURVE_BOX_WIDTH     600
-#define CURVE_BOX_HEIGTH    300
+#define CURVE_BOX_WIDTH     680
+#define CURVE_BOX_HEIGTH    340
 #define CURVE_BOX_START_W   0
 #define CURVE_BOX_START_H   15
 #define PER_STEP_POINT      2
@@ -37,6 +37,7 @@ public:
     void on_speed_cmd(void);
     void on_voltage_cmd(void);
     void on_undefine_cmd(void);
+    void show_battle_info(void);
 
 private slots:
     void on_pushButton_switch_clicked();
