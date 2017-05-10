@@ -921,16 +921,16 @@ release\mainwindow.obj: ..\QT\mainwindow.cpp ../QT/mainwindow.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\qitemselectionmodel.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\QLabel \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\qlabel.h \
-		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\QLineEdit \
-		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\qlineedit.h \
-		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtGui\qtextcursor.h \
-		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtGui\qtextformat.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\QMenuBar \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\qmenubar.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\qmenu.h \
+		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\QProgressBar \
+		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\qprogressbar.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\QPushButton \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\qpushbutton.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\qabstractbutton.h \
+		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\QSpinBox \
+		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\qspinbox.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\QStatusBar \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\qstatusbar.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\QToolBar \

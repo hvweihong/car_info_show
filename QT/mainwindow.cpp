@@ -206,12 +206,12 @@ void MainWindow::draw_background(void)
 
 void MainWindow::on_temperature_cmd(void)
 {
-    ui->tem_box->setValue(g_uart_rec_pkg.data[0]);
+   // ui->tem_box->setValue(g_uart_rec_pkg.data[0]);
 }
 
 void MainWindow::on_speed_cmd(void)
 {
-    ui->power_box->setValue(g_uart_rec_pkg.data[0]);
+   // ui->power_box->setValue(g_uart_rec_pkg.data[0]);
 }
 
 void MainWindow::on_voltage_cmd(void)
@@ -252,26 +252,35 @@ void MainWindow::on_undefine_cmd(void)
 
 void MainWindow::show_battle_info(void)
 {
-    //显示总电压
+    //sum info show
+    int sum_power_rate = 0;
+    int power_resi_avg = (g_uart_rec_pkg.data[3] + g_uart_rec_pkg.data[7] + g_uart_rec_pkg.data[11] + g_uart_rec_pkg.data[15])/BATTLE_NUM;
+    int tem_avg = (g_uart_rec_pkg.data[2] + g_uart_rec_pkg.data[6] + g_uart_rec_pkg.data[10] + g_uart_rec_pkg.data[14])/BATTLE_NUM;
+    int power_rate[4] = {0};
+    for(int i = 0; i < BATTLE_NUM; i++)
+    {
+        power_rate[i] = g_uart_rec_pkg.data[i*4]*g_uart_rec_pkg.data[i*4 + 1];
+        sum_power_rate += power_rate[i];
+    }
+    ui->voltage_box->setValue(power_resi_avg);
+    ui->power_box->setValue(sum_power_rate);
+    ui->tem_box->setValue(tem_avg);
 
-    ui->voltage_box->setValue(g_uart_rec_pkg.data[0] + g_uart_rec_pkg.data[4] + g_uart_rec_pkg.data[8] + g_uart_rec_pkg.data[12]);
-
-    //电池一
+    //battle 1
     ui->bta_1_V->setValue(g_uart_rec_pkg.data[0]);
     ui->bta_1_A->setValue(g_uart_rec_pkg.data[1]);
     ui->bta_1_C->setValue(g_uart_rec_pkg.data[2]);
     ui->bta_1_W->setValue(g_uart_rec_pkg.data[0]*g_uart_rec_pkg.data[1]);
     ui->battleBar_1->setValue(g_uart_rec_pkg.data[3]);
 
-    //电池二
-    ui->bta_2_V->setValue(g_uart_rec_pkg.data[4]);
+    //battle2
     ui->bta_2_V->setValue(g_uart_rec_pkg.data[4]);
     ui->bta_2_A->setValue(g_uart_rec_pkg.data[5]);
     ui->bta_2_C->setValue(g_uart_rec_pkg.data[6]);
     ui->bta_2_W->setValue(g_uart_rec_pkg.data[4]*g_uart_rec_pkg.data[5]);
     ui->battleBar_2->setValue(g_uart_rec_pkg.data[7]);
 
-    //电池三
+    //battle3
     ui->bta_3_V->setValue(g_uart_rec_pkg.data[8]);
     ui->bta_3_V->setValue(g_uart_rec_pkg.data[8]);
     ui->bta_3_A->setValue(g_uart_rec_pkg.data[9]);
@@ -279,7 +288,7 @@ void MainWindow::show_battle_info(void)
     ui->bta_3_W->setValue(g_uart_rec_pkg.data[8]*g_uart_rec_pkg.data[9]);
     ui->battleBar_3->setValue(g_uart_rec_pkg.data[11]);
 
-    //电池四
+    //battle4
     ui->bta_3_V->setValue(g_uart_rec_pkg.data[12]);
     ui->bta_4_V->setValue(g_uart_rec_pkg.data[12]);
     ui->bta_4_A->setValue(g_uart_rec_pkg.data[13]);
