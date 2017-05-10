@@ -230,7 +230,7 @@ void MainWindow::on_voltage_cmd(void)
         {
             y_index[i] = CURVE_BOX_HEIGTH;
         }
-        y_index[i] = CURVE_BOX_HEIGTH - y_index[i];
+        y_index[i] = CURVE_BOX_HEIGTH - y_index[i]; //change graph direct
     }
     for(int i = 0; i < BATTLE_NUM; i++)
     {
