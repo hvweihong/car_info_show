@@ -355,7 +355,7 @@ debug\moc_mainwindow.cpp: C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtWidgets\QMainW
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\qsettings.h \
 		..\QT\mainwindow.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IE:/hv/project/car_info_show/QT -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtGui -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtCore -I. ..\QT\mainwindow.h -o debug\moc_mainwindow.cpp
+	C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/mkspecs/win32-msvc2013 -ID:/project/car/car_info_show/QT -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtGui -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtCore -I. ..\QT\mainwindow.h -o debug\moc_mainwindow.cpp
 
 debug\moc_data_deal.cpp: C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\QObject \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\qobject.h \
@@ -421,7 +421,7 @@ debug\moc_data_deal.cpp: C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\QObject \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\QStringList \
 		..\QT\data_deal\data_deal.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IE:/hv/project/car_info_show/QT -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtGui -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtCore -I. ..\QT\data_deal\data_deal.h -o debug\moc_data_deal.cpp
+	C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/mkspecs/win32-msvc2013 -ID:/project/car/car_info_show/QT -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtGui -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtCore -I. ..\QT\data_deal\data_deal.h -o debug\moc_data_deal.cpp
 
 debug\moc_qextserialbase.cpp: C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\QIODevice \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\qiodevice.h \
@@ -480,7 +480,7 @@ debug\moc_qextserialbase.cpp: C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\QIODe
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\QMutex \
 		..\QT\qextserialport\qextserialbase.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IE:/hv/project/car_info_show/QT -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtGui -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtCore -I. ..\QT\qextserialport\qextserialbase.h -o debug\moc_qextserialbase.cpp
+	C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/mkspecs/win32-msvc2013 -ID:/project/car/car_info_show/QT -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtGui -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtCore -I. ..\QT\qextserialport\qextserialbase.h -o debug\moc_qextserialbase.cpp
 
 debug\moc_qextserialport.cpp: ..\QT\qextserialport\win_qextserialport.h \
 		..\QT\qextserialport\qextserialbase.h \
@@ -541,7 +541,7 @@ debug\moc_qextserialport.cpp: ..\QT\qextserialport\win_qextserialport.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\QMutex \
 		..\QT\qextserialport\qextserialport.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IE:/hv/project/car_info_show/QT -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtGui -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtCore -I. ..\QT\qextserialport\qextserialport.h -o debug\moc_qextserialport.cpp
+	C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/mkspecs/win32-msvc2013 -ID:/project/car/car_info_show/QT -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtGui -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtCore -I. ..\QT\qextserialport\qextserialport.h -o debug\moc_qextserialport.cpp
 
 debug\moc_win_qextserialport.cpp: ..\QT\qextserialport\qextserialbase.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\QIODevice \
@@ -601,7 +601,7 @@ debug\moc_win_qextserialport.cpp: ..\QT\qextserialport\qextserialbase.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\include\QtCore\QMutex \
 		..\QT\qextserialport\win_qextserialport.h \
 		C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe
-	C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/mkspecs/win32-msvc2013 -IE:/hv/project/car_info_show/QT -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtGui -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtCore -I. ..\QT\qextserialport\win_qextserialport.h -o debug\moc_win_qextserialport.cpp
+	C:\Qt\Qt5.7.1\5.7\msvc2013_64\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -D_WIN64 -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/mkspecs/win32-msvc2013 -ID:/project/car/car_info_show/QT -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtWidgets -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtGui -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtANGLE -IC:/Qt/Qt5.7.1/5.7/msvc2013_64/include/QtCore -I. ..\QT\qextserialport\win_qextserialport.h -o debug\moc_win_qextserialport.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:

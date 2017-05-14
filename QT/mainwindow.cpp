@@ -16,6 +16,7 @@
 #include <QTimer>
 #include <QPainterPath>
 #include <QTime>
+#include "math.h"
 
 
 BaudRateType baud_array[]={BAUD9600,BAUD19200,BAUD38400,BAUD57600,BAUD115200};
@@ -286,14 +287,16 @@ void MainWindow::on_undefine_cmd(void)
 void MainWindow::show_battle_info(void)
 {
     //sum info show
+    int dump_energy = -256.6*pow(g_uart_rec_pkg.data[0]/50.0, 3) + 2750*pow(g_uart_rec_pkg.data[0]/50.0, 2) - 9557*g_uart_rec_pkg.data[0]/50.0 + 10737;
     //ui->voltage_box->setValue(power_resi_avg);
     ui->power_box->setValue(g_uart_rec_pkg.data[0]*g_uart_rec_pkg.data[1]);
     ui->tem_box->setValue(g_uart_rec_pkg.data[5]);
 
     //battle 1
-    ui->bta_1_V->setValue(g_uart_rec_pkg.data[0]/50.0);
+    ui->bta_1_V->setValue(g_uart_rec_pkg.data[0]*20);
     ui->bta_1_A->setValue(g_uart_rec_pkg.data[1]);
-    ui->battleBar_1->setValue(g_uart_rec_pkg.data[2]);
+    qDebug("dump_energy:%d", dump_energy);
+    ui->battleBar_2->setValue(dump_energy);
     if(1 == g_uart_rec_pkg.data[3])
     {
         ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(255, 0, 0) }");
@@ -304,10 +307,10 @@ void MainWindow::show_battle_info(void)
 
     if(1 == g_uart_rec_pkg.data[4])
     {
-        ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 0, 255) }");
+        ui->battleBar_4->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 0, 255) }");
     }else
     {
-        ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 255, 0) }");
+        ui->battleBar_4->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 255, 0) }");
     }
 
     //ui->bta_1_C->setValue(g_uart_rec_pkg.data[2]);
