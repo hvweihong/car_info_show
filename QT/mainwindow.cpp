@@ -19,7 +19,11 @@
 
 
 BaudRateType baud_array[]={BAUD9600,BAUD19200,BAUD38400,BAUD57600,BAUD115200};
-static quint32 origin_point = CURVE_BOX_START_W;
+quint32 origin_point_box_h_1 = CURVE_BOX_START_H;
+quint32 origin_point_box_h_2 = CURVE_BOX_START_H + CURVE_BOX_2_OFFSET + CURVE_BOX_HEIGTH;
+
+quint32 origin_point_box_w_1 = CURVE_BOX_START_W;
+quint32 origin_point_box_w_2 = CURVE_BOX_START_W;
 extern uart_rec_packet g_uart_rec_pkg;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -41,12 +45,14 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     update_timer= new QTimer(this);
-    for(int i = 0; i < BATTLE_NUM; i++)
+    for(int i = 0; i < LINE_NUM; i++)
     {
         battle_line[i] = new QPoint;
         path[i] = new QPainterPath;
     }
-
+    ui->battleBar_3->setStyleSheet("QProgressBar::chunk { background-color: rgb(255, 0, 0) }");
+    ui->battleBar_4->setStyleSheet("QProgressBar::chunk { background-color: rgb(255, 0, 0) }");
+    ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(255, 0, 0) }");
     connect(update_timer,SIGNAL(timeout()),this,SLOT(graph_update()));
 
     QDir dir;
@@ -171,23 +177,25 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 void MainWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
-    QPoint originPoint(origin_point,0);
-    painter.translate(originPoint);  //adjust the origin point of the painting
-    for(int i = 0; i < BATTLE_NUM; i++)
+    QPoint originPointBox1(origin_point_box_w_1, origin_point_box_h_1);
+    //QPoint originPointBox2(origin_point_box_w_2, origin_point_box_h_2);
+    painter.translate(originPointBox1);  //adjust the origin point of the painting
+
+    for(int i = 0; i < LINE_NUM; i++)
     {
         switch(i)
         {
             case 0:
-                painter.setPen(QPen(Qt::red)); //adjust the painter size and color
+                painter.setPen(QPen(Qt::red, 2)); //adjust the painter size and color
                 break;
             case 1:
-                painter.setPen(QPen(Qt::green)); //adjust the painter size and color
+                painter.setPen(QPen(Qt::green, 2)); //adjust the painter size and color
                 break;
             case 2:
-                painter.setPen(QPen(Qt::blue)); //adjust the painter size and color
+                painter.setPen(QPen(Qt::blue, 2)); //adjust the painter size and color
                 break;
             case 3:
-                painter.setPen(QPen(Qt::yellow)); //adjust the painter size and color
+                painter.setPen(QPen(Qt::yellow, 2)); //adjust the painter size and color
                 break;
            default:
                 break;
@@ -201,7 +209,11 @@ void MainWindow::draw_background(void)
 {
     QPainter painter(this);
     painter.setPen(QPen(Qt::black,2));//设置画笔形式
+    //curve_1
     painter.drawRect(CURVE_BOX_START_W, CURVE_BOX_START_H, (CURVE_BOX_WIDTH + 2), (CURVE_BOX_HEIGTH + 2));
+
+    //curve_2
+    painter.drawRect(CURVE_BOX_START_W, (CURVE_BOX_START_H + CURVE_BOX_HEIGTH + CURVE_BOX_2_OFFSET), (CURVE_BOX_WIDTH + 2), (CURVE_BOX_HEIGTH + 2));
 }
 
 void MainWindow::on_temperature_cmd(void)
@@ -217,31 +229,51 @@ void MainWindow::on_speed_cmd(void)
 void MainWindow::on_voltage_cmd(void)
 {
     static quint32 x_index = 0;
-    static quint32 y_index[BATTLE_NUM] = {0};
+    static quint32 y_index[LINE_NUM] = {0};
 
     //显示各个电池电压
     show_battle_info();
     //显示曲线
     x_index += PER_STEP_POINT;
-    for(int i = 0; i < BATTLE_NUM; i++)
+
+    //line 1
+    y_index[0] = g_uart_rec_pkg.data[0] + CURVE_BOX_START_H;
+
+    //line 2
+    y_index[1] = g_uart_rec_pkg.data[1] + CURVE_BOX_START_H;
+
+    //line 3
+    y_index[2] = g_uart_rec_pkg.data[1] + CURVE_BOX_START_H;
+
+    for(int i = 0; i < LINE_NUM; i++)
     {
-        y_index[i] = g_uart_rec_pkg.data[i + 1];
         if(y_index[i] > CURVE_BOX_HEIGTH)
         {
             y_index[i] = CURVE_BOX_HEIGTH;
         }
         y_index[i] = CURVE_BOX_HEIGTH - y_index[i]; //change graph direct
     }
-    for(int i = 0; i < BATTLE_NUM; i++)
+
+
+
+    for(int i = 0; i < 2; i++)
     {
         battle_line[i]->setX(x_index);
-        battle_line[i]->setY(y_index[i] + CURVE_BOX_START_H);
+        battle_line[i]->setY(y_index[i]);
+        path[i]->lineTo(*battle_line[i]);
+    }
+
+    for(int i = 2; i < LINE_NUM; i++)
+    {
+        battle_line[i]->setX(x_index);
+        battle_line[i]->setY(y_index[i] + (CURVE_BOX_HEIGTH + CURVE_BOX_2_OFFSET));
         path[i]->lineTo(*battle_line[i]);
     }
 
     if(x_index > CURVE_BOX_START_W + CURVE_BOX_WIDTH)
     {
-        origin_point -= PER_STEP_POINT;
+        origin_point_box_w_1 -= PER_STEP_POINT;
+        //origin_point_box_w_2 -= PER_STEP_POINT;
     }
 
 }
@@ -254,46 +286,31 @@ void MainWindow::on_undefine_cmd(void)
 void MainWindow::show_battle_info(void)
 {
     //sum info show
-    int sum_power_rate = 0;
-    int power_resi_avg = (g_uart_rec_pkg.data[3] + g_uart_rec_pkg.data[7] + g_uart_rec_pkg.data[11] + g_uart_rec_pkg.data[15])/BATTLE_NUM;
-    int tem_avg = (g_uart_rec_pkg.data[2] + g_uart_rec_pkg.data[6] + g_uart_rec_pkg.data[10] + g_uart_rec_pkg.data[14])/BATTLE_NUM;
-    int power_rate[4] = {0};
-    for(int i = 0; i < BATTLE_NUM; i++)
-    {
-        power_rate[i] = g_uart_rec_pkg.data[i*4]*g_uart_rec_pkg.data[i*4 + 1];
-        sum_power_rate += power_rate[i];
-    }
-    ui->voltage_box->setValue(power_resi_avg);
-    ui->power_box->setValue(sum_power_rate);
-    ui->tem_box->setValue(tem_avg);
+    //ui->voltage_box->setValue(power_resi_avg);
+    ui->power_box->setValue(g_uart_rec_pkg.data[0]*g_uart_rec_pkg.data[1]);
+    ui->tem_box->setValue(g_uart_rec_pkg.data[5]);
 
     //battle 1
-    ui->bta_1_V->setValue(g_uart_rec_pkg.data[0]);
+    ui->bta_1_V->setValue(g_uart_rec_pkg.data[0]/50.0);
     ui->bta_1_A->setValue(g_uart_rec_pkg.data[1]);
-    ui->bta_1_C->setValue(g_uart_rec_pkg.data[2]);
-    ui->bta_1_W->setValue(g_uart_rec_pkg.data[0]*g_uart_rec_pkg.data[1]);
-    ui->battleBar_1->setValue(g_uart_rec_pkg.data[3]);
+    ui->battleBar_1->setValue(g_uart_rec_pkg.data[2]);
+    if(1 == g_uart_rec_pkg.data[3])
+    {
+        ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(255, 0, 0) }");
+    }else
+    {
+        ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 255, 0) }");
+    }
 
-    //battle2
-    ui->bta_2_V->setValue(g_uart_rec_pkg.data[4]);
-    ui->bta_2_A->setValue(g_uart_rec_pkg.data[5]);
-    ui->bta_2_C->setValue(g_uart_rec_pkg.data[6]);
-    ui->bta_2_W->setValue(g_uart_rec_pkg.data[4]*g_uart_rec_pkg.data[5]);
-    ui->battleBar_2->setValue(g_uart_rec_pkg.data[7]);
+    if(1 == g_uart_rec_pkg.data[4])
+    {
+        ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 0, 255) }");
+    }else
+    {
+        ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 255, 0) }");
+    }
 
-    //battle3
-    ui->bta_3_V->setValue(g_uart_rec_pkg.data[8]);
-    ui->bta_3_V->setValue(g_uart_rec_pkg.data[8]);
-    ui->bta_3_A->setValue(g_uart_rec_pkg.data[9]);
-    ui->bta_3_C->setValue(g_uart_rec_pkg.data[10]);
-    ui->bta_3_W->setValue(g_uart_rec_pkg.data[8]*g_uart_rec_pkg.data[9]);
-    ui->battleBar_3->setValue(g_uart_rec_pkg.data[11]);
+    //ui->bta_1_C->setValue(g_uart_rec_pkg.data[2]);
+    //ui->bta_1_W->setValue(g_uart_rec_pkg.data[0]*g_uart_rec_pkg.data[1]);
 
-    //battle4
-    ui->bta_3_V->setValue(g_uart_rec_pkg.data[12]);
-    ui->bta_4_V->setValue(g_uart_rec_pkg.data[12]);
-    ui->bta_4_A->setValue(g_uart_rec_pkg.data[13]);
-    ui->bta_4_C->setValue(g_uart_rec_pkg.data[14]);
-    ui->bta_4_W->setValue(g_uart_rec_pkg.data[12]*g_uart_rec_pkg.data[13]);
-    ui->battleBar_4->setValue(g_uart_rec_pkg.data[15]);
 }
