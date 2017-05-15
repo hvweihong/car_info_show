@@ -1,13 +1,13 @@
 #!/usr/bin/python
 # -*- coding=utf-8 -*-
-import time 
-import sys
-import os
-import re
-import  msvcrt
+"""
+Created on Mon May 15 12:06:17 2017
+
+@author: harvey.zheng
+"""
 import math
 
-x = float(raw_input("please enter voltage: "))
-soc = -256.6*pow(x, 3) + 2750*pow(x, 2) - 9557*x + 10737
-print soc
-time.sleep(2)
+while 1:
+    x = float(raw_input("please enter voltage: "))
+    soc = -256.6*math.pow(x, 3) + 2750*math.pow(x, 2) - 9557*x + 10737
+    print soc

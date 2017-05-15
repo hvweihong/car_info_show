@@ -211,9 +211,25 @@ void MainWindow::draw_background(void)
     QPainter painter(this);
     painter.setPen(QPen(Qt::black,2));//设置画笔形式
     //curve_1
+    for(int i = 1; i < 10; i++)
+    {
+        painter.drawLine((CURVE_BOX_WIDTH - 2), (CURVE_BOX_START_H + 20*i),
+                         (CURVE_BOX_WIDTH + 2), (CURVE_BOX_START_H + 20*i));
+
+        painter.drawLine((CURVE_BOX_START_W + 35*i), (CURVE_BOX_START_H + CURVE_BOX_HEIGTH - 2),
+                         (CURVE_BOX_START_W + 35*i), (CURVE_BOX_START_H + CURVE_BOX_HEIGTH));
+    }
     painter.drawRect(CURVE_BOX_START_W, CURVE_BOX_START_H, (CURVE_BOX_WIDTH + 2), (CURVE_BOX_HEIGTH + 2));
 
     //curve_2
+    for(int i = 1; i < 10; i++)
+    {
+        painter.drawLine((CURVE_BOX_WIDTH - 2), (CURVE_BOX_START_H + CURVE_BOX_HEIGTH + CURVE_BOX_2_OFFSET + 20*i),
+                         (CURVE_BOX_WIDTH + 2), (CURVE_BOX_START_H + CURVE_BOX_HEIGTH + CURVE_BOX_2_OFFSET + 20*i));
+
+        painter.drawLine((CURVE_BOX_START_W + 35*i), (CURVE_BOX_START_H + CURVE_BOX_HEIGTH*2 + CURVE_BOX_2_OFFSET - 2),
+                         (CURVE_BOX_START_W + 35*i), (CURVE_BOX_START_H + CURVE_BOX_HEIGTH*2 + CURVE_BOX_2_OFFSET));
+    }
     painter.drawRect(CURVE_BOX_START_W, (CURVE_BOX_START_H + CURVE_BOX_HEIGTH + CURVE_BOX_2_OFFSET), (CURVE_BOX_WIDTH + 2), (CURVE_BOX_HEIGTH + 2));
 }
 
@@ -232,19 +248,35 @@ void MainWindow::on_voltage_cmd(void)
     static quint32 x_index = 0;
     static quint32 y_index[LINE_NUM] = {0};
 
+    battle_info m_battle_info = {0};
+
+    m_battle_info.voltage = g_uart_rec_pkg.data[0]*20;//change V --> mv
+    m_battle_info.current = g_uart_rec_pkg.data[1]*100;//change A --> ma
+    m_battle_info.soc = -256.6*pow(g_uart_rec_pkg.data[0]/50.0, 3) + 2750*pow(g_uart_rec_pkg.data[0]/50.0, 2) - 9557*g_uart_rec_pkg.data[0]/50.0 + 10737;
+    m_battle_info.power_rate = (g_uart_rec_pkg.data[0]/50.0)*(g_uart_rec_pkg.data[1]/50.0);
+    m_battle_info.temperature = g_uart_rec_pkg.data[5]/2.0;
+    m_battle_info.battle_status = g_uart_rec_pkg.data[4];
+    if(m_battle_info.soc > 100)
+    {
+        m_battle_info.soc = 100;
+    }else if(m_battle_info.soc < 0)
+    {
+        m_battle_info.soc = 0;
+    }
+
     //显示各个电池电压
-    show_battle_info();
+    show_battle_info(&m_battle_info);
     //显示曲线
     x_index += PER_STEP_POINT;
 
     //line 1
-    y_index[0] = g_uart_rec_pkg.data[0] + CURVE_BOX_START_H;
+    y_index[0] = m_battle_info.voltage/10 - VOLTAGE_OFFSET + CURVE_BOX_START_H; //every step 10mv
 
     //line 2
-    y_index[1] = g_uart_rec_pkg.data[1] + CURVE_BOX_START_H;
+    y_index[1] = m_battle_info.current/100 + CURVE_BOX_START_H;//every step 100ma
 
     //line 3
-    y_index[2] = g_uart_rec_pkg.data[1] + CURVE_BOX_START_H;
+    y_index[2] = m_battle_info.soc + CURVE_BOX_START_H;
 
     for(int i = 0; i < LINE_NUM; i++)
     {
@@ -254,8 +286,6 @@ void MainWindow::on_voltage_cmd(void)
         }
         y_index[i] = CURVE_BOX_HEIGTH - y_index[i]; //change graph direct
     }
-
-
 
     for(int i = 0; i < 2; i++)
     {
@@ -284,28 +314,26 @@ void MainWindow::on_undefine_cmd(void)
     ui->other_box->setValue(g_uart_rec_pkg.data[0]);
 }
 
-void MainWindow::show_battle_info(void)
+void MainWindow::show_battle_info(battle_info *m_battle_info)
 {
     //sum info show
-    int dump_energy = -256.6*pow(g_uart_rec_pkg.data[0]/50.0, 3) + 2750*pow(g_uart_rec_pkg.data[0]/50.0, 2) - 9557*g_uart_rec_pkg.data[0]/50.0 + 10737;
     //ui->voltage_box->setValue(power_resi_avg);
-    ui->power_box->setValue(g_uart_rec_pkg.data[0]*g_uart_rec_pkg.data[1]);
-    ui->tem_box->setValue(g_uart_rec_pkg.data[5]);
+    qDebug("dump_energy:%d", m_battle_info->soc);
+    ui->power_box->setValue(m_battle_info->power_rate);
+    ui->tem_box->setValue(m_battle_info->temperature);
+    ui->bta_1_V->setValue(m_battle_info->voltage);
+    ui->bta_1_A->setValue(m_battle_info->current);
+    ui->battleBar_2->setValue(m_battle_info->soc);
 
-    //battle 1
-    ui->bta_1_V->setValue(g_uart_rec_pkg.data[0]*20);
-    ui->bta_1_A->setValue(g_uart_rec_pkg.data[1]);
-    qDebug("dump_energy:%d", dump_energy);
-    ui->battleBar_2->setValue(dump_energy);
-    if(1 == g_uart_rec_pkg.data[3])
+    if(m_battle_info->voltage < 272)
     {
-        ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(255, 0, 0) }");
+       ui->battleBar_3->setStyleSheet("QProgressBar::chunk { background-color: rgb(255, 0, 0) }");
     }else
     {
         ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 255, 0) }");
     }
 
-    if(1 == g_uart_rec_pkg.data[4])
+    if(1 == m_battle_info->battle_status)
     {
         ui->battleBar_4->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 0, 255) }");
     }else
@@ -313,7 +341,13 @@ void MainWindow::show_battle_info(void)
         ui->battleBar_4->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 255, 0) }");
     }
 
-    //ui->bta_1_C->setValue(g_uart_rec_pkg.data[2]);
-    //ui->bta_1_W->setValue(g_uart_rec_pkg.data[0]*g_uart_rec_pkg.data[1]);
+
+    if(1 == g_uart_rec_pkg.data[3])
+    {
+        ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(255, 0, 0) }");
+    }else
+    {
+        ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 255, 0) }");
+    }
 
 }

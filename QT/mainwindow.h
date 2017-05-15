@@ -15,7 +15,8 @@
 #define CURVE_BOX_START_W   0
 #define CURVE_BOX_START_H   15
 #define PER_STEP_POINT      2
-#define LINE_NUM          3
+#define LINE_NUM            3
+#define VOLTAGE_OFFSET      300
 
 
 namespace Ui {
@@ -38,7 +39,7 @@ public:
     void on_speed_cmd(void);
     void on_voltage_cmd(void);
     void on_undefine_cmd(void);
-    void show_battle_info(void);
+    void show_battle_info(battle_info *m_battle_info);
 
 private slots:
     void on_pushButton_switch_clicked();

@@ -343,10 +343,10 @@
      </rect>
     </property>
     <property name="maximum">
-     <number>250</number>
+     <number>100</number>
     </property>
     <property name="value">
-     <number>200</number>
+     <number>80</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -393,8 +393,8 @@
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>40</y>
+      <x>400</x>
+      <y>340</y>
       <width>51</width>
       <height>31</height>
      </rect>
@@ -417,8 +417,8 @@
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>70</y>
+      <x>460</x>
+      <y>340</y>
       <width>51</width>
       <height>21</height>
      </rect>
@@ -441,8 +441,8 @@
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>130</y>
+      <x>600</x>
+      <y>340</y>
       <width>51</width>
       <height>21</height>
      </rect>
@@ -465,8 +465,8 @@
    <widget class="QLabel" name="label_14">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>100</y>
+      <x>540</x>
+      <y>340</y>
       <width>51</width>
       <height>31</height>
      </rect>
@@ -489,8 +489,8 @@
    <widget class="QLabel" name="label_15">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>350</y>
+      <x>730</x>
+      <y>340</y>
       <width>51</width>
       <height>21</height>
      </rect>
@@ -513,8 +513,8 @@
    <widget class="QLabel" name="label_16">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>320</y>
+      <x>670</x>
+      <y>340</y>
       <width>51</width>
       <height>31</height>
      </rect>
@@ -572,32 +572,6 @@
      <string>A</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_21">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>370</y>
-      <width>16</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>W</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_22">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>370</y>
-      <width>21</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>°C</string>
-    </property>
-   </widget>
    <widget class="QSpinBox" name="bta_1_V">
     <property name="geometry">
      <rect>
@@ -625,32 +599,6 @@
       <family>Agency FB</family>
       <pointsize>18</pointsize>
      </font>
-    </property>
-    <property name="maximum">
-     <number>999</number>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="bta_1_W">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>370</y>
-      <width>42</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="maximum">
-     <number>999</number>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="bta_1_C">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>370</y>
-      <width>42</width>
-      <height>22</height>
-     </rect>
     </property>
     <property name="maximum">
      <number>999</number>
@@ -841,6 +789,110 @@
     </property>
     <property name="text">
      <string>电流</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>410</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0%</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>350</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>30%</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>290</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>60%</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>230</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>90%</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_21">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>70</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>120</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_22">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>130</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>60</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_25">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>10</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>180</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_26">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>190</y>
+      <width>41</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
     </property>
    </widget>
   </widget>

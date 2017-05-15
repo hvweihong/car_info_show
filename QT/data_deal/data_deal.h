@@ -18,6 +18,16 @@ typedef struct
     unsigned char data[256];         //data
 }uart_rec_packet;
 
+typedef struct
+{
+    int voltage;
+    int current;
+    float power_rate;
+    float temperature;
+    char soc;
+    bool battle_status;
+}battle_info;
+
 typedef enum{
     key_type,
     value_type
