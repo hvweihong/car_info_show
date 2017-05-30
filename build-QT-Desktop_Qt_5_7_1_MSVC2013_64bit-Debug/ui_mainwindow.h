@@ -88,7 +88,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(791, 552);
+        MainWindow->resize(836, 552);
         MainWindow->setAutoFillBackground(true);
         MainWindow->setStyleSheet(QStringLiteral("font-color:rgb(255, 0, 127)"));
         centralWidget = new QWidget(MainWindow);
@@ -226,24 +226,24 @@ public:
         label_16->setStyleSheet(QStringLiteral(""));
         label_17 = new QLabel(centralWidget);
         label_17->setObjectName(QStringLiteral("label_17"));
-        label_17->setGeometry(QRect(730, 130, 21, 21));
+        label_17->setGeometry(QRect(730, 130, 31, 21));
         QFont font1;
         font1.setFamily(QStringLiteral("Agency FB"));
         font1.setPointSize(18);
         label_17->setFont(font1);
         label_18 = new QLabel(centralWidget);
         label_18->setObjectName(QStringLiteral("label_18"));
-        label_18->setGeometry(QRect(540, 130, 21, 31));
+        label_18->setGeometry(QRect(540, 130, 31, 31));
         label_18->setFont(font1);
         bta_1_V = new QSpinBox(centralWidget);
         bta_1_V->setObjectName(QStringLiteral("bta_1_V"));
         bta_1_V->setGeometry(QRect(670, 130, 51, 31));
-        bta_1_V->setMaximum(999);
+        bta_1_V->setMaximum(10000);
         bta_1_A = new QSpinBox(centralWidget);
         bta_1_A->setObjectName(QStringLiteral("bta_1_A"));
         bta_1_A->setGeometry(QRect(480, 130, 51, 31));
         bta_1_A->setFont(font1);
-        bta_1_A->setMaximum(999);
+        bta_1_A->setMaximum(10000);
         label_19 = new QLabel(centralWidget);
         label_19->setObjectName(QStringLiteral("label_19"));
         label_19->setGeometry(QRect(420, 90, 151, 31));
@@ -266,7 +266,7 @@ public:
         label_36->setStyleSheet(QStringLiteral(""));
         label_37 = new QLabel(centralWidget);
         label_37->setObjectName(QStringLiteral("label_37"));
-        label_37->setGeometry(QRect(640, 270, 141, 31));
+        label_37->setGeometry(QRect(640, 270, 151, 31));
         label_37->setFont(font);
         label_37->setStyleSheet(QStringLiteral(""));
         battleBar_5 = new QProgressBar(centralWidget);
@@ -312,7 +312,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 791, 23));
+        menuBar->setGeometry(QRect(0, 0, 836, 23));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -362,8 +362,8 @@ public:
         label_14->setText(QApplication::translate("MainWindow", "\347\224\265\346\265\201", Q_NULLPTR));
         label_15->setText(QApplication::translate("MainWindow", "-------", Q_NULLPTR));
         label_16->setText(QApplication::translate("MainWindow", "\351\207\214\347\250\213", Q_NULLPTR));
-        label_17->setText(QApplication::translate("MainWindow", "V", Q_NULLPTR));
-        label_18->setText(QApplication::translate("MainWindow", "A", Q_NULLPTR));
+        label_17->setText(QApplication::translate("MainWindow", "mv", Q_NULLPTR));
+        label_18->setText(QApplication::translate("MainWindow", "ma", Q_NULLPTR));
         label_19->setText(QApplication::translate("MainWindow", "SOD/\346\267\261\345\272\246\346\224\276\347\224\265", Q_NULLPTR));
         label_20->setText(QApplication::translate("MainWindow", "SOC/\345\211\251\344\275\231\347\224\265\351\207\217", Q_NULLPTR));
         label_35->setText(QApplication::translate("MainWindow", "\347\224\265\345\216\213\346\212\245\350\255\246", Q_NULLPTR));

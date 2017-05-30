@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>791</width>
+    <width>836</width>
     <height>552</height>
    </rect>
   </property>
@@ -539,7 +539,7 @@
      <rect>
       <x>730</x>
       <y>130</y>
-      <width>21</width>
+      <width>31</width>
       <height>21</height>
      </rect>
     </property>
@@ -550,7 +550,7 @@
      </font>
     </property>
     <property name="text">
-     <string>V</string>
+     <string>mv</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_18">
@@ -558,7 +558,7 @@
      <rect>
       <x>540</x>
       <y>130</y>
-      <width>21</width>
+      <width>31</width>
       <height>31</height>
      </rect>
     </property>
@@ -569,7 +569,7 @@
      </font>
     </property>
     <property name="text">
-     <string>A</string>
+     <string>ma</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="bta_1_V">
@@ -582,7 +582,7 @@
      </rect>
     </property>
     <property name="maximum">
-     <number>999</number>
+     <number>10000</number>
     </property>
    </widget>
    <widget class="QSpinBox" name="bta_1_A">
@@ -601,7 +601,7 @@
      </font>
     </property>
     <property name="maximum">
-     <number>999</number>
+     <number>10000</number>
     </property>
    </widget>
    <widget class="QLabel" name="label_19">
@@ -705,7 +705,7 @@
      <rect>
       <x>640</x>
       <y>270</y>
-      <width>141</width>
+      <width>151</width>
       <height>31</height>
      </rect>
     </property>
@@ -901,7 +901,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>791</width>
+     <width>836</width>
      <height>23</height>
     </rect>
    </property>

@@ -249,13 +249,15 @@ void MainWindow::on_voltage_cmd(void)
     static quint32 y_index[LINE_NUM] = {0};
 
     battle_info m_battle_info = {0};
-
+    // Data conversion
     m_battle_info.voltage = g_uart_rec_pkg.data[0]*20;//change V --> mv
     m_battle_info.current = g_uart_rec_pkg.data[1]*100;//change A --> ma
-    m_battle_info.soc = -256.6*pow(g_uart_rec_pkg.data[0]/50.0, 3) + 2750*pow(g_uart_rec_pkg.data[0]/50.0, 2) - 9557*g_uart_rec_pkg.data[0]/50.0 + 10737;
+    m_battle_info.soc = -256.6*pow(g_uart_rec_pkg.data[0]/50.0, 3) + 2750*pow(g_uart_rec_pkg.data[0]/50.0, 2) - 9557*(g_uart_rec_pkg.data[0]/50.0) + 10737;
     m_battle_info.power_rate = (g_uart_rec_pkg.data[0]/50.0)*(g_uart_rec_pkg.data[1]/50.0);
     m_battle_info.temperature = g_uart_rec_pkg.data[5]/2.0;
     m_battle_info.battle_status = g_uart_rec_pkg.data[4];
+
+    //soc value limit
     if(m_battle_info.soc > 100)
     {
         m_battle_info.soc = 100;
@@ -264,20 +266,23 @@ void MainWindow::on_voltage_cmd(void)
         m_battle_info.soc = 0;
     }
 
-    //显示各个电池电压
+    //show battle voltage
     show_battle_info(&m_battle_info);
-    //显示曲线
+
+
+    //set x value to new point
     x_index += PER_STEP_POINT;
 
-    //line 1
+    //line 1 y_index    line_1 >>>> voltage
     y_index[0] = m_battle_info.voltage/10 - VOLTAGE_OFFSET + CURVE_BOX_START_H; //every step 10mv
 
-    //line 2
+    //line 2 y_index    line_2 >>>> current
     y_index[1] = m_battle_info.current/100 + CURVE_BOX_START_H;//every step 100ma
 
-    //line 3
+    //line 3 y_index    line_3 >>>> soc
     y_index[2] = m_battle_info.soc + CURVE_BOX_START_H;
 
+    //y_index value limit
     for(int i = 0; i < LINE_NUM; i++)
     {
         if(y_index[i] > CURVE_BOX_HEIGTH)
@@ -287,6 +292,7 @@ void MainWindow::on_voltage_cmd(void)
         y_index[i] = CURVE_BOX_HEIGTH - y_index[i]; //change graph direct
     }
 
+    //set new point to line 1 line 2
     for(int i = 0; i < 2; i++)
     {
         battle_line[i]->setX(x_index);
@@ -294,6 +300,7 @@ void MainWindow::on_voltage_cmd(void)
         path[i]->lineTo(*battle_line[i]);
     }
 
+    //set new point to line 3
     for(int i = 2; i < LINE_NUM; i++)
     {
         battle_line[i]->setX(x_index);
@@ -301,6 +308,7 @@ void MainWindow::on_voltage_cmd(void)
         path[i]->lineTo(*battle_line[i]);
     }
 
+    //move the line when x_index out of range
     if(x_index > CURVE_BOX_START_W + CURVE_BOX_WIDTH)
     {
         origin_point_box_w_1 -= PER_STEP_POINT;
@@ -325,7 +333,8 @@ void MainWindow::show_battle_info(battle_info *m_battle_info)
     ui->bta_1_A->setValue(m_battle_info->current);
     ui->battleBar_2->setValue(m_battle_info->soc);
 
-    if(m_battle_info->voltage < 272)
+    //if voltage less than 280mv change led to red
+    if(m_battle_info->voltage < 280)
     {
        ui->battleBar_3->setStyleSheet("QProgressBar::chunk { background-color: rgb(255, 0, 0) }");
     }else
@@ -333,6 +342,7 @@ void MainWindow::show_battle_info(battle_info *m_battle_info)
         ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 255, 0) }");
     }
 
+    //show battle status charge or discharge
     if(1 == m_battle_info->battle_status)
     {
         ui->battleBar_4->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 0, 255) }");
@@ -341,7 +351,7 @@ void MainWindow::show_battle_info(battle_info *m_battle_info)
         ui->battleBar_4->setStyleSheet("QProgressBar::chunk { background-color: rgb(0, 255, 0) }");
     }
 
-
+    //  show SOH status
     if(1 == g_uart_rec_pkg.data[3])
     {
         ui->battleBar_5->setStyleSheet("QProgressBar::chunk { background-color: rgb(255, 0, 0) }");
